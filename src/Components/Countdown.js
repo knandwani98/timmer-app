@@ -16,7 +16,8 @@ class Countdown extends Component {
   };
 
   handlePlus = (input) => {
-    const { isRunning } = this.state;
+    const { isRunning, timmer } = this.state;
+    let prevState = timmer;
 
     if (!isRunning) {
       prevState[input] = prevState[input] + 1;
@@ -27,83 +28,83 @@ class Countdown extends Component {
     }
   };
 
-  // handleMinus = (input) => {
-  //   const { isRunning, timer } = this.state;
-  //   let prevState = timer;
+  handleMinus = (input) => {
+    const { isRunning, timer } = this.state;
+    let prevState = timer;
 
-  //   if (!isRunning && timer[input] > 0) {
-  //     prevState[input] = prevState[input] - 1;
+    if (!isRunning && timer[input] > 0) {
+      prevState[input] = prevState[input] - 1;
 
-  //     this.setState({
-  //       timer: prevState,
-  //     });
-  //   }
-  // };
+      this.setState({
+        timer: prevState,
+      });
+    }
+  };
 
-  // componentDidUpdate = () => {
-  //   const { isRunning, timer } = this.state;
-  //   if (isRunning) {
-  //     this.interval = setInterval(() => {
-  //       if (timer.seconds > 0) {
-  //         this.setState({ timer: { ...timer, seconds: timer.seconds - 1 } });
-  //       } else if (timer.minutes > 0) {
-  //         this.setState({
-  //           timer: { ...timer, minutes: timer.minutes - 1, seconds: 59 },
-  //         });
-  //       } else if (timer.hours > 0) {
-  //         this.setState({
-  //           timer: {
-  //             ...timer,
-  //             hours: timer.hours - 1,
-  //             minutes: 59,
-  //             seconds: 59,
-  //           },
-  //         });
-  //       }
-  //     }, 1000);
-  //   }
-  // };
+  componentDidUpdate = () => {
+    const { isRunning, timer } = this.state;
+    if (isRunning) {
+      this.interval = setInterval(() => {
+        if (timer.seconds > 0) {
+          this.setState({ timer: { ...timer, seconds: timer.seconds - 1 } });
+        } else if (timer.minutes > 0) {
+          this.setState({
+            timer: { ...timer, minutes: timer.minutes - 1, seconds: 59 },
+          });
+        } else if (timer.hours > 0) {
+          this.setState({
+            timer: {
+              ...timer,
+              hours: timer.hours - 1,
+              minutes: 59,
+              seconds: 59,
+            },
+          });
+        }
+      }, 1000);
+    }
+  };
 
-  // componentWillUnmount = () => {
-  //   clearInterval(this.interval);
-  // };
+  componentWillUnmount = () => {
+    clearInterval(this.interval);
+  };
 
-  // handleStart = () => {
-  //   const { timer } = this.state;
+  handleStart = () => {
+    const { timer } = this.state;
 
-  //   if (timer.hours !== 0 || timer.minutes !== 0 || timer.seconds !== 0) {
-  //     this.setState({
-  //       isRunning: true,
-  //     });
-  //   } else {
-  //     window.alert("Countdown Ended");
-  //   }
-  // };
+    if (timer.hours !== 0 || timer.minutes !== 0 || timer.seconds !== 0) {
+      this.setState({
+        isRunning: true,
+      });
+    } else {
+      window.alert("Countdown Ended");
+    }
+  };
 
-  // handleStop = () => {
-  //   this.setState({
-  //     isTimerOn: false,
-  //     isTimerStop: true,
-  //   });
-  // };
+  handleStop = () => {
+    this.setState({
+      isTimerOn: false,
+      isTimerStop: true,
+    });
+  };
 
-  // handleResume = () => {
-  //   this.setState({
-  //     isTimerOn: true,
-  //     isTimerStop: false,
-  //   });
-  // };
+  handleResume = () => {
+    this.setState({
+      isTimerOn: true,
+      isTimerStop: false,
+    });
+  };
 
-  // handleReset = () => {
-  //   this.setState({
-  //     timerReset: true,
-  //     timer: {
-  //       hours: 0,
-  //       minutes: 0,
-  //       seconds: 0,
-  //     },
-  //   });
-  // };
+  handleReset = () => {
+    this.setState({
+      timerReset: true,
+      timer: {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      },
+    });
+  };
 
   render() {
     let { toggleCard } = this.props;
